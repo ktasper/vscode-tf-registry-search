@@ -20,6 +20,9 @@
   "categories": [
     "Other"
   ],
+  "activationEvents": [
+    "onCommand:extension.tfSearch"
+  ],
   "main": "./extension.js",
   "contributes": {
     "menus": {
