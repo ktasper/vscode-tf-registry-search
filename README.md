@@ -23,3 +23,8 @@ As long as the provider name is the first item in the resource definition this *
 
 
 ![](/static/search2.jpg)
+
+![](https://github.com/ktasper/vscode-tf-registry-search/blob/main/static/search1.jpg?raw=true)
+
+
+![](https://github.com/ktasper/vscode-tf-registry-search/blob/main/static/search2.jpg?raw=true)
