@@ -1,0 +1,63 @@
+{
+  "name": "tf-registry-search",
+  "displayName": "terraform-registry-search",
+  "description": "Access the terraform registry docs for cloud providers from the comfort of your vscode",
+  "version": "1.0.0",
+  "publisher": "ktasper",
+  "engines": {
+    "vscode": "^1.31.0"
+  },
+  "author": {
+    "name": "ktasper",
+    "url": "https://www.github.com/ktasper"
+  },
+  "icon": "static/icon.png",
+  "homepage": "https://www.github.com/ktasper/vscode-tf-registry-search",
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/ktasper/vscode-tf-registry-search"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorHasSelection",
+          "command": "extension.tfSearch",
+          "group": "navigation"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "extension.tfSearch",
+        "title": "Search with Terraform Registry"
+      }
+    ],
+    "configuration": {
+      "title": "Terraform Search Config",
+      "type": "object",
+      "properties": {
+        "tfSearch.QueryTemplate": {
+          "type": "string",
+          "default": "https://registry.terraform.io/providers/hashicorp/%PREFIX%/latest/docs/resources/%SELECTION%",
+          "description": "Search Query"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "typescript": "^3.3.1",
+    "vscode": "^1.1.28",
+    "eslint": "^5.13.0",
+    "@types/node": "^10.12.21",
+    "@types/mocha": "^2.2.42"
+  }
+}
