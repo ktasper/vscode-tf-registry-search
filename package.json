@@ -46,7 +46,7 @@
       "properties": {
         "tfSearch.QueryTemplate": {
           "type": "string",
-          "default": "https://registry.terraform.io/providers/hashicorp/%PREFIX%/latest/docs/resources/%SELECTION%",
+          "default": "https://registry.terraform.io/providers/hashicorp/%PREFIX%/latest/docs/%PREV_WORD%/%SELECTION%",
           "description": "Search Query"
         }
       }

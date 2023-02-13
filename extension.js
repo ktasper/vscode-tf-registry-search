@@ -55,27 +55,36 @@ function deactivate() {}
 exports.deactivate = deactivate;
 
 function webSearch() {
-  const selectedText = getSelectedText();
-  if (!selectedText) {
+  const selectedTextAndPrevWord = getSelectedTextAndPrevWord();
+  if (!selectedTextAndPrevWord.selectedText) {
     return;
   }
   
+  const selectedText = selectedTextAndPrevWord.selectedText;
   const selectedParts = selectedText.split("_");
   const selectedKeyword = selectedParts.slice(1).join("_");
   const selectedPrefix = selectedParts[0];
-  const uriText = encodeURI(selectedKeyword);
+  let prevWord = selectedTextAndPrevWord.prevWord;
   
+  if (prevWord === "resource") {
+    prevWord = "resources";
+  }
+  if (prevWord === "data") {
+    prevWord = "data-sources";
+  }
   const tfSearchCfg = vscode.workspace.getConfiguration(CFG_SECTION);
   const queryTemplate = tfSearchCfg.get(CFG_QUERY);
   const query = queryTemplate
-    .replace("%SELECTION%", uriText)
-    .replace("%PREFIX%", selectedPrefix);
+    .replace("%SELECTION%", selectedKeyword)
+    .replace("%PREFIX%", selectedPrefix)
+    .replace("%PREV_WORD%", prevWord);
   
   vscode.commands.executeCommand("vscode.open", vscode.Uri.parse(query));
 }
 
 
-function getSelectedText() {
+
+function getSelectedTextAndPrevWord() {
   const documentText = vscode.window.activeTextEditor.document.getText();
   if (!documentText) {
     return "";
@@ -92,5 +101,16 @@ function getSelectedText() {
   );
 
   let selectedText = documentText.slice(selStartoffset, selEndOffset).trim();
-  return selectedText.replace(/\s\s+/g, " ");
+  selectedText = selectedText.replace(/\s\s+/g, " ");
+
+  let prevWord = "";
+  let match = /\b(data|resource)\b/.exec(documentText.slice(0, selStartoffset));
+  if (match) {
+    prevWord = match[1];
+  }
+
+  return {
+    selectedText,
+    prevWord
+  };
 }
