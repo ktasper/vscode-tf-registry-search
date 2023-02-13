@@ -2,7 +2,7 @@
   "name": "tf-registry-search",
   "displayName": "terraform-registry-search",
   "description": "Access the terraform registry docs for cloud providers from the comfort of your vscode",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "publisher": "ktasper",
   "engines": {
     "vscode": "^1.31.0"
